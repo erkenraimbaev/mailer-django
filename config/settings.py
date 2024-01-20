@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'users',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +138,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -150,5 +152,4 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'erkekb07@yandex.ru'
 EMAIL_HOST_PASSWORD = 'wmipyxbdjqmgwpdo'
 
-# LOGIN_URL = '/users/'
-
+LOGIN_URL = '/users/'
