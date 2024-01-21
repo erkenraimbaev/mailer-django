@@ -12,6 +12,7 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='users/', verbose_name='аватар', **NULLABLE)
     phone = models.CharField(max_length=50, verbose_name='номер телефона', **NULLABLE)
     country = models.CharField(max_length=150, verbose_name='страна', **NULLABLE)
+    is_active = models.BooleanField(default=True, verbose_name='активный пользовавтель')
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -22,3 +23,9 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
+        permissions = [
+            (
+                "set_is_active",
+                "Can active user"
+            )
+        ]
