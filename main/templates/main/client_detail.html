@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="col-4 mx-auto d-flex justify-content-center align-items-center">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ object.email | title }}</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4 text-start m-3 text-center">
+                <li>- Имя: {{object.first_name | title}}</li>
+                <li>- Фамилия: {{object.last_name | title}}</li>
+                <li>- Коментарий: {{object.comment | title}}</li>
+                <li>- Создатель: {{object.owner | title}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

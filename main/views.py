@@ -47,13 +47,13 @@ class NewsletterUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return self.object
         raise Http404
 
-    def form_valid(self, form):
-        formset = self.get_context_data()['formset']
-        self.object = form.save()
-        if formset.is_valid():
-            formset.instance = self.object
-            formset.save()
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     formset = self.get_context_data()['formset']
+    #     self.object = form.save()
+    #     if formset.is_valid():
+    #         formset.instance = self.object
+    #         formset.save()
+    #     return super().form_valid(form)
 
     def test_func(self):
         return self.get_object().owner == self.request.user or self.request.user.is_superuser \
