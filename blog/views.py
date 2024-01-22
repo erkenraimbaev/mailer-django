@@ -52,7 +52,7 @@ class BlogUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:view', args=[self.kwargs.get('pk')])
+        return reverse('main:home')
 
 
 class BlogDeleteView(DeleteView):

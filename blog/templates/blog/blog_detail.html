@@ -2,23 +2,20 @@
 {% load my_tags %}
 {% block content%}
 
-<div class="container" xmlns="http://www.w3.org/1999/html">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="{% mediapath object.image %}" />
-            </div>
-            <div class="col-md-8">
-                <h2>{{ object.title }} ({{ object.slug }})</h2>
-                </p>
-            </div>
-            <div class="card-body">
-            </p>
-                {{ object.post_content }}
-            </p>
-            </div>
-            <div class="card-footer">
-                Просмотры: {{ object.count_of_views }}
-            </div>
+<div class="col-8 mx-auto" >
+    <div class="col-md-6 mx-auto">
+        <div class="card-header text-center">
+        <h2>{{ object.title }}</h2>
+        </div>
+        <p>
+        <img src="{% mediapath object.image %}" width='600' height='400'/>
+        </p><br>
+        <div class="card-body">
+            <p>{{ object.post_content }}</p>
+        </div>
+        <div class="card-footer">
+            Просмотры: {{ object.count_of_views }}
         </div>
     </div>
+</div>
 {% endblock %}
