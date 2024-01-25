@@ -7,7 +7,7 @@ from django.views.generic import CreateView, ListView, UpdateView, TemplateView,
 
 from main.forms import NewsletterForm, ClientForm
 from main.models import Newsletter, Client
-from main.services import get_cached_client
+# from main.services import get_cached_client
 
 
 class NewsletterCreateView(LoginRequiredMixin, CreateView):
@@ -31,6 +31,9 @@ class NewsletterDetailView(DetailView):
 
 class NewsletterListView(LoginRequiredMixin, ListView):
     model = Newsletter
+    newsletter_list = Newsletter.objects.all()
+    newsletter_count = len(Newsletter.objects.all())
+    active_newsletter_count = len(Newsletter.objects.filter(is_active=True))
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
@@ -89,12 +92,14 @@ class ClientCreateView(CreateView):
 class ClientListView(LoginRequiredMixin, ListView):
     model = Client
     template_name = 'main/client_list.html'
+    client_list = Client.objects.all()
+    clients_count = len(Client.objects.all())
 
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        context_data['title'] = 'Список клиентов'
-        context_data['object_list'] = get_cached_client()
-        return context_data
+    # def get_context_data(self, **kwargs):
+    #     context_data = super().get_context_data(**kwargs)
+    #     context_data['title'] = 'Список клиентов'
+    #     context_data['object_list'] = get_cached_client()
+    #     return context_data
 
 
 class ClientDetailView(DetailView):

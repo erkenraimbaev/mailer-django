@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': "django.db.backends.postgresql_psycopg2",
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'PASSWORD': os.getenv('DB_PASS'),
         'HOST': "127.0.0.1",
         'PORT': 5432,
     }
@@ -157,10 +157,11 @@ EMAIL_HOST_PASSWORD = 'wmipyxbdjqmgwpdo'
 LOGIN_URL = '/users/'
 
 CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
+
 if CACHE_ENABLED:
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-            'LOCATION': os.getenv('CACHES_LOCATION')
+            'LOCATION': os.getenv('CACHES_LOCATION'),
         }
     }

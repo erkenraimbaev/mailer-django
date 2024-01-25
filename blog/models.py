@@ -14,7 +14,7 @@ class Blog(models.Model):
     date_of_create = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     publication_sign = models.BooleanField(default=True, verbose_name='признак публикации')
     count_of_views = models.PositiveIntegerField(default=0, verbose_name='количество просмотров')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='создатель')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='создатель', default='')
 
     def __str__(self):
         return f'Название поста: {self.title}, Дата создания: {self.date_of_create} Автор: {self.owner}'
