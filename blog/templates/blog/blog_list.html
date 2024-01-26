@@ -8,36 +8,59 @@
             <a class="btn btn-lg btn-outline-primary" href="{% url 'main:create_newsletter' %}">Добавить расслыку</a>
         {% endif %}
     </div>
-        {% for object in object_list %}
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">{{ object.title | title }}</h4>
-                        </div><br>
-                        <p>
-                            <img src="{% mediapath object.image %}" width='140' height='100' />
-                        </p><br>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{% url 'blog:view' object.pk %}"
-                                   class="btn btn-sm btn-outline-secondary">Посмотреть</a>
-                                <a href="{% url 'blog:edit' object.pk %}"
-                                   class="btn btn-sm btn-outline-secondary">Изменить</a>
-                                <a href="{% url 'blog:delete' object.pk %}"
-                                   class="btn btn-sm btn-outline-danger">Удалить</a>
+    <div class="col-6 mx-auto">
+        <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Количество рассылок на сайте:
+                <span class="badge bg-primary rounded-pill">{{ mailing }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Количество активных рассылок:
+                <span class="badge bg-primary rounded-pill">{{ mailing_active }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Количество уникальных клиентов:
+                <span class="badge bg-primary rounded-pill">{{ client }}</span>
+              </li>
+        </ul>
+    </div>
+    <br>
+    <p>
+        <div class="row col-12">
+            {% for object in object_list %}
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">{{ object.title | title }}</h4>
+                            </div><br>
+                            <p>
+                                <img src="{% mediapath object.image %}" width='140' height='100' />
+                            </p><br>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{% url 'blog:view' object.pk %}"
+                                       class="btn btn-sm btn-outline-secondary">Посмотреть</a>
+                                    <a href="{% url 'blog:edit' object.pk %}"
+                                       class="btn btn-sm btn-outline-secondary">Изменить</a>
+                                    <a href="{% url 'blog:delete' object.pk %}"
+                                       class="btn btn-sm btn-outline-danger">Удалить</a>
+                                </div>
+                                {% if object.publication_sign %}
+                                    <a class='btn btn-warning' href="{% url 'blog:toggle_activity' object.pk %}">Снять с публикации</a>
+                                {% else %}
+                                    <a class='btn btn-success' href="{% url 'blog:toggle_activity' object.pk %}">Опубликовать</a>
+                                {% endif %}
                             </div>
-                            {% if object.publication_sign %}
-                                <a class='btn btn-warning' href="{% url 'blog:toggle_activity' object.pk %}">Снять с публикации</a>
-                            {% else %}
-                                <a class='btn btn-success' href="{% url 'blog:toggle_activity' object.pk %}">Опубликовать</a>
-                            {% endif %}
                         </div>
                     </div>
-                </div>
-            </div>
-        {% endfor %}
-
+                </div><br>
+            {% endfor %}
+        </div>
+    </p>
+    <div class="col-6 mb-5 mx-auto">
+            <a class="btn btn-lg btn-outline-primary" href="{% url 'blog:create' %}">Добавить пост для блога</a>
+    </div>
 </div>
 
 {% endblock %}

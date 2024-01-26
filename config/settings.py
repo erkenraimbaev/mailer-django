@@ -156,7 +156,7 @@ EMAIL_HOST_PASSWORD = 'wmipyxbdjqmgwpdo'
 
 LOGIN_URL = '/users/'
 
-CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'False'
 
 if CACHE_ENABLED:
     CACHES = {

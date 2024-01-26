@@ -5,9 +5,9 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, UpdateView, TemplateView, DeleteView, DetailView
 
-from main.forms import NewsletterForm, ClientForm
-from main.models import Newsletter, Client
-# from main.services import get_cached_client
+from main.forms import NewsletterForm, ClientForm, LogsForm
+from main.models import Newsletter, Client, Logs
+from main.services import get_cached_client
 
 
 class NewsletterCreateView(LoginRequiredMixin, CreateView):
@@ -95,11 +95,11 @@ class ClientListView(LoginRequiredMixin, ListView):
     client_list = Client.objects.all()
     clients_count = len(Client.objects.all())
 
-    # def get_context_data(self, **kwargs):
-    #     context_data = super().get_context_data(**kwargs)
-    #     context_data['title'] = 'Список клиентов'
-    #     context_data['object_list'] = get_cached_client()
-    #     return context_data
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Список клиентов'
+        context_data['object_list'] = get_cached_client()
+        return context_data
 
 
 class ClientDetailView(DetailView):
@@ -138,3 +138,33 @@ class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Client
     success_url = reverse_lazy('main:home')
     permission_required = "main.delete_client"
+
+
+class LogsCreateView(LoginRequiredMixin, CreateView):
+    model = Logs
+    form_class = LogsForm
+    success_url = reverse_lazy('main:home')
+
+
+class LogsDetailView(DetailView):
+    model = Newsletter
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        return context_data
+
+
+class LogsListView(LoginRequiredMixin, ListView):
+    model = Logs
+    logs_list = Logs.objects.all()
+    logs_count = len(Logs.objects.all())
+    make_logs_count = len(Logs.objects.filter(status='make'))
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        return context_data
+
+
+class LogsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Logs
+    success_url = reverse_lazy('main:home')

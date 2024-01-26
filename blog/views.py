@@ -5,6 +5,7 @@ from pytils.translit import slugify
 
 from blog.forms import ProductForm
 from blog.models import Blog
+from main.models import Newsletter, Client
 
 
 # Create your views here.
@@ -37,8 +38,16 @@ class BlogListView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.filter(publication_sign=True)
+        queryset = queryset.filter(publication_sign=True).order_by('?')[:3]
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['mailing'] = Newsletter.objects.count()
+        context['mailing_active'] = Newsletter.objects.filter(is_active=True).count()
+        context['client'] = Client.objects.count()
+        # context['blog'] = Blog.objects.order_by('?')[:3]
+        return context
 
 
 class BlogUpdateView(UpdateView):

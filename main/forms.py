@@ -1,6 +1,6 @@
 from django import forms
 
-from main.models import Newsletter, Client
+from main.models import Newsletter, Client, Logs
 
 
 class StyleFormMixin:
@@ -35,3 +35,17 @@ class NewsletterForm(StyleFormMixin, forms.ModelForm):
         self.fields["period"].widget.attrs['class'] = 'select'
         self.fields["status"].widget.attrs['class'] = 'select'
         self.fields["body"].widget.attrs['class'] = 'text-area'
+
+
+class LogsForm(StyleFormMixin, forms.Form):
+
+    class Meta:
+        model = Logs
+        fields = ('date', 'status', 'response')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+        self.fields["date"].widget.attrs['class'] = 'DateTimeInput'
+
