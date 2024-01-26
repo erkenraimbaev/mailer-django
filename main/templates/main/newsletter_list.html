@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-12 mb-5"></div>
+            {% for object in object_list %}
+                <div class="col-3">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">{{ object.head | title }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4 text-start m-3 text-center">
+                                <li>- Содержимое: {{object.body | title}}</li>
+                                <li>- Время: {{object.time | title}}</li>
+                                <li>- Статус: {{object.status | title}}</li>
+                                <li>- Кому: {{object.to_client | title}}</li>
+                                <li>- Создатель: {{object.owner | title}}</li>
+                            </ul>
+                            <a href="{% url 'main:newsletter' object.pk %}" type="button" class="btn btn-sm btn-block btn-outline-primary">Подробнее</a>
+                            {% if user.has_perm.set_is_active or user.is_superuser or user == object.owner %}
+                                <a href="{% url 'main:edit_newsletter' object.pk %}" type="button" class="btn btn-sm btn-info">Изменить</a>
+                            {% endif %}
+                            {% if user.is_superuser or user == object.owner %}
+                            <a href="{% url 'main:delete_newsletter' object.pk %}" type="button" class="btn btn-sm btn-danger">Удалить</a>
+                            {% endif %}
+                            <div class="d-flex justify-content-between align-items-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+</div>
+{% endblock %}

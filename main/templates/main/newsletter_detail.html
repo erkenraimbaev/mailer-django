@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="col-4 mx-auto d-flex justify-content-center align-items-center">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal text-center">{{ object.head | title }}</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4 text-start m-3 text-center">
+                <li>- Содержимое: {{object.body | title}}</li>
+                <li>- Время: {{object.time | title}}</li>
+                <li>- Статус: {{object.status | title}}</li>
+                <li>- Кому: {{object.to_client | title}}</li>
+                <li>- Создатель: {{object.owner | title}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
