@@ -4,7 +4,7 @@ from blog.models import Blog
 from main.forms import StyleFormMixin
 
 
-class ProductForm(StyleFormMixin, forms.ModelForm):
+class BlogForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Blog
         fields = ('title', 'post_content', 'image', 'publication_sign',)

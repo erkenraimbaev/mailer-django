@@ -31,9 +31,6 @@ class NewsletterDetailView(DetailView):
 
 class NewsletterListView(LoginRequiredMixin, ListView):
     model = Newsletter
-    newsletter_list = Newsletter.objects.all()
-    newsletter_count = len(Newsletter.objects.all())
-    active_newsletter_count = len(Newsletter.objects.filter(is_active=True))
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
@@ -92,8 +89,6 @@ class ClientCreateView(CreateView):
 class ClientListView(LoginRequiredMixin, ListView):
     model = Client
     template_name = 'main/client_list.html'
-    client_list = Client.objects.all()
-    clients_count = len(Client.objects.all())
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -156,9 +151,6 @@ class LogsDetailView(DetailView):
 
 class LogsListView(LoginRequiredMixin, ListView):
     model = Logs
-    logs_list = Logs.objects.all()
-    logs_count = len(Logs.objects.all())
-    make_logs_count = len(Logs.objects.filter(status='make'))
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)

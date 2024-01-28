@@ -3,7 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from pytils.translit import slugify
 
-from blog.forms import ProductForm
+from blog.forms import BlogForm
 from blog.models import Blog
 from main.models import Newsletter, Client
 
@@ -11,8 +11,7 @@ from main.models import Newsletter, Client
 # Create your views here.
 class BlogCreateView(CreateView):
     model = Blog
-    form_class = ProductForm
-    fields = ('title', 'post_content', 'image')
+    form_class = BlogForm
     success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
@@ -34,7 +33,6 @@ class BlogDetailView(DetailView):
 
 class BlogListView(ListView):
     model = Blog
-    blog_list = Blog.objects.all()
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
@@ -46,13 +44,12 @@ class BlogListView(ListView):
         context['mailing'] = Newsletter.objects.count()
         context['mailing_active'] = Newsletter.objects.filter(is_active=True).count()
         context['client'] = Client.objects.count()
-        # context['blog'] = Blog.objects.order_by('?')[:3]
         return context
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    form_class = ProductForm
+    form_class = BlogForm
 
     def form_valid(self, form):
         new_post = form.save(commit=False)
