@@ -39,7 +39,7 @@ class Newsletter(models.Model):
 
     head = models.CharField(max_length=150, verbose_name='Тема письма')
     body = models.TextField(verbose_name='Тело письма')
-    time = models.DateTimeField(default=datetime.now(), verbose_name='Время рассылки')
+    time = models.DateTimeField(default=datetime.now, verbose_name='Время рассылки')
     period = models.CharField(max_length=20, choices=PERIOD_TYPES, default='no', verbose_name='период')
     status = models.CharField(max_length=20, choices=STATUS_TYPES, default='created', verbose_name='статус')
     to_client = models.ForeignKey(Client, to_field='email', on_delete=models.CASCADE, verbose_name='кому '

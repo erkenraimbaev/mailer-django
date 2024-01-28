@@ -59,7 +59,9 @@
         </div>
     </p>
     <div class="col-6 mb-5 mx-auto">
+        {% if user|has_group:"content_manager" or user.is_superuser %}
             <a class="btn btn-lg btn-outline-primary" href="{% url 'blog:create' %}">Добавить пост для блога</a>
+        {% endif %}
     </div>
 </div>
 

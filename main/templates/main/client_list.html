@@ -5,6 +5,7 @@
 {% block content %}
 <div class="row text-center">
     <div class="col-12 mb-5"></div>
+        {% if user == object.owner or user.is_superuser %}
             {% for object in object_list %}
                 <div class="col-3">
                     <div class="card mb-4 box-shadow">
@@ -19,7 +20,7 @@
                                 <li>- Создатель: {{object.owner | title}}</li>
                             </ul>
                             <a href="{% url 'main:client' object.pk %}" type="button" class="btn btn-sm btn-block btn-outline-primary">Подробнее</a>
-                            {% if user.is_superuser or user == object.owner %}
+                            {% if user.is_superuser or user == object.owner or user|has_group:"manager" %}
                                 <a href="{% url 'main:edit_client' object.pk %}" type="button" class="btn btn-sm btn-info">Изменить</a>
                             {% endif %}
                             {% if user.is_superuser or user == object.owner %}
@@ -31,5 +32,6 @@
                     </div>
                 </div>
             {% endfor %}
+        {% endif %}
 </div>
 {% endblock %}
