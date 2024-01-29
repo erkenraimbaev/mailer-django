@@ -12,7 +12,7 @@ class Client(models.Model):
     last_name = models.CharField(max_length=150, verbose_name='Фамилия', **NULLABLE)
     email = models.EmailField(verbose_name='Почта', unique=True)
     comment = models.TextField(verbose_name='коментарий', **NULLABLE)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='создатель')
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, **NULLABLE, verbose_name='создатель')
 
     def __str__(self):
         return f'Почта: {self.email} Фамилия: {self.last_name}'
@@ -44,7 +44,7 @@ class Newsletter(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_TYPES, default='created', verbose_name='статус')
     to_client = models.ForeignKey(Client, to_field='email', on_delete=models.CASCADE, verbose_name='кому '
                                                                                                    'отправлять')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='создатель')
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, **NULLABLE, verbose_name='создатель')
     is_active = models.BooleanField(default=True, verbose_name='активная рассылка')
 
     def __str__(self):
