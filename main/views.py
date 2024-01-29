@@ -19,6 +19,7 @@ class NewsletterCreateView(LoginRequiredMixin, CreateView):
         self.object = form.save()
         self.object.owner = self.request.user
         self.object.save()
+        return super().form_valid(form)
 
 
 class NewsletterDetailView(DetailView):
@@ -84,6 +85,7 @@ class ClientCreateView(CreateView):
         self.object = form.save()
         self.object.owner = self.request.user
         self.object.save()
+        return super().form_valid(form)
 
 
 class ClientListView(LoginRequiredMixin, ListView):
